@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { blogPosts } from "@/lib/data";
+import { getPublicPost, getPublicPosts, getAllPublicSlugs } from "@/lib/blog";
 import { careers } from "@/lib/careers";
 import { Button } from "@/components/ui/button";
 import { BreadcrumbHero } from "@/components/ui/breadcrumb-hero";
@@ -9,8 +9,12 @@ import { ArrowRight, Briefcase, DollarSign, MapPin } from "lucide-react";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return blogPosts.map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  try {
+    return (await getAllPublicSlugs()).map((slug) => ({ slug }));
+  } catch {
+    return [];
+  }
 }
 
 const contentMap: Record<string, string> = {
@@ -51,20 +55,21 @@ AfyaDesk helps you implement these changes with trained Kenyan professionals who
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getPublicPost(slug);
   if (!post) return {};
   return {
     title: `${post.title} | AfyaDesk Blog`,
     description: post.excerpt,
-    openGraph: { images: [post.coverImage || post.image] },
+    openGraph: { images: [post.coverImage] },
   };
 }
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  const post = await getPublicPost(slug);
   if (!post) notFound();
-  const body = contentMap[post.slug] || contentMap.default;
+  // DB posts use their rich-text HTML; bundled posts use the static content map
+  const body = post.db ? post.content : contentMap[post.slug] || contentMap.default;
   const isHtml = /<\s*(p|h2|h3|ul|ol|li|strong|em|blockquote|a)\b/i.test(body);
   // light markdown → HTML for plain-text bodies (**bold**, "- " bullets, "1. " steps)
   const mdHtml = body
@@ -85,7 +90,8 @@ export default async function BlogPostPage({ params }: Props) {
     })
     .join("");
   const openRoles = careers.slice(0, 4);
-  const related = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const allPosts = await getPublicPosts();
+  const related = allPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
 
   return (
     <div>

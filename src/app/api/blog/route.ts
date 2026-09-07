@@ -15,12 +15,17 @@ const schema = z.object({
 });
 
 export async function GET() {
+  const fallback = async () => {
+    const { blogPosts } = await import("@/lib/data");
+    return NextResponse.json(blogPosts.map((p) => ({ ...p, published: true, coverImage: (p as any).coverImage || (p as any).image, static: true })));
+  };
   try {
     const posts = await prisma.blogPost.findMany({ orderBy: { createdAt: "desc" }, take: 100 });
+    // connected DB with empty tables (e.g. unseeded production) → serve bundled posts
+    if (!posts || posts.length === 0) return fallback();
     return NextResponse.json(posts);
   } catch {
-    const { blogPosts } = await import("@/lib/data");
-    return NextResponse.json(blogPosts.map((p) => ({ ...p, published: true, coverImage: (p as any).coverImage || (p as any).image })));
+    return fallback();
   }
 }
 

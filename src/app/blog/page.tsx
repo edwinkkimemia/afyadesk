@@ -1,11 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { blogPosts } from "@/lib/data";
+import { getPublicPosts } from "@/lib/blog";
 import { BreadcrumbHero } from "@/components/ui/breadcrumb-hero";
 
 export const metadata = { title: "Blog — Healthcare Operations & Virtual Support" };
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getPublicPosts();
   return (
     <div>
       <BreadcrumbHero
@@ -16,7 +17,7 @@ export default function BlogPage() {
       />
 
       <div className="mx-auto max-w-7xl px-6 py-10 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {blogPosts.map((p) => (
+        {posts.map((p) => (
           <Link
             key={p.slug}
             href={`/blog/${p.slug}`}

@@ -510,7 +510,7 @@ export default function AdminDashboardClient({ user }: { user: any }) {
             <div className="space-y-5 min-w-0 overflow-hidden">
               <div className="rounded-2xl bg-white border border-[#E6EEF6] p-6 overflow-hidden">
                 <h3 className="font-bold text-[#0B1F33]">Services — {services.length}</h3>
-                <p className="text-sm text-[#5B6B80]">Fallback to static data; admin can add with cover image via upload.</p>
+                <p className="text-sm text-[#5B6B80]">Bundled items serve the live site until you create DB versions below.</p>
                 <div className="mt-4 grid gap-3 min-w-0">
                   {services.map((s: any) => (
                     <div key={s.slug || s.id} className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E6EEF6] flex gap-4 min-w-0 overflow-hidden">
@@ -520,7 +520,7 @@ export default function AdminDashboardClient({ user }: { user: any }) {
                         </span>
                       )}
                       <div className="min-w-0 flex-1 overflow-hidden">
-                        <div className="font-semibold text-[#0B1F33] break-words">{s.title || s.slug}</div>
+                        <div className="font-semibold text-[#0B1F33] break-words">{s.title || s.slug} {s.static && <span className="ml-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#EAF6FF] border border-[#E6EEF6] text-[#0F8B8D]">BUNDLED</span>}</div>
                         <div className="text-xs text-[#5B6B80] break-words line-clamp-2">{s.description?.slice(0, 120)}</div>
                         <div className="text-xs text-[#8A9BB0] mt-1 break-all">{s.icon || ""} • {s.slug}</div>
                       </div>
@@ -561,6 +561,7 @@ export default function AdminDashboardClient({ user }: { user: any }) {
             <div className="space-y-5 min-w-0 overflow-hidden">
               <div className="rounded-2xl bg-white border border-[#E6EEF6] p-6 overflow-hidden">
                 <h3 className="font-bold text-[#0B1F33]">Blog — {blog.length}</h3>
+                <p className="text-sm text-[#5B6B80]">Bundled posts serve as fallback — create DB posts below to manage content.</p>
                 <div className="mt-4 grid gap-3 min-w-0">
                   {blog.slice(0, 20).map((p: any) => (
                     <div key={p.slug || p.id} className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E6EEF6] flex gap-3 min-w-0 overflow-hidden">
@@ -570,7 +571,7 @@ export default function AdminDashboardClient({ user }: { user: any }) {
                         </span>
                       )}
                       <div className="min-w-0 flex-1 overflow-hidden">
-                        <div className="font-medium text-[#0B1F33] truncate break-words">{p.title}</div>
+                        <div className="font-medium text-[#0B1F33] truncate break-words">{p.title} {p.static && <span className="ml-1 text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-[#EAF6FF] border border-[#E6EEF6] text-[#0F8B8D]">BUNDLED</span>}</div>
                         <div className="text-xs text-[#5B6B80] break-all truncate">{p.slug} • {p.published ? "Published" : "Draft"} • {p.coverImage ? "has cover" : "no cover"}</div>
                         <div className="text-xs text-[#8A9BB0] truncate break-words">{p.excerpt?.slice(0, 80)}</div>
                       </div>
