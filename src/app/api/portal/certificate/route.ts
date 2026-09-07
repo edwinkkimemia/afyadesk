@@ -42,8 +42,8 @@ export async function GET(req: Request) {
     if (!enrollment && enrollmentIdParam.startsWith("demo-")) { enrollment = await loadDemo(enrollmentIdParam); if (enrollment) isDemo = true; }
     if (!enrollment) return new NextResponse("Not found", { status: 404 });
     if (!isAdmin) {
-      if (portalSess && portalSess.enrollmentId !== enrollmentIdParam) return new NextResponse("Forbidden", { status: 403 });
-      if (!portalSess && enrollment.status !== "COMPLETED") return new NextResponse("Not completed", { status: 403 });
+      // only the owning student (or admin) may download — no anonymous access
+      if (!portalSess || portalSess.enrollmentId !== enrollmentIdParam) return new NextResponse("Forbidden", { status: 403 });
     }
   } else {
     if (!portalSess && !isAdmin) return new NextResponse("Unauthorized", { status: 401 });
@@ -59,8 +59,24 @@ export async function GET(req: Request) {
     if (!enrollment) return new NextResponse("Not found", { status: 404 });
   }
 
-  if (!isAdmin && enrollment.status !== "COMPLETED" && !enrollment.hasCompletedCourse) {
-    return new NextResponse("Complete the course to download certificate. Admin can mark complete.", { status: 403 });
+  // Eligibility: admin-marked COMPLETED, or all 20 modules actually done.
+  // The hasCompletedCourse flag alone NEVER grants download (it was set on early downloads).
+  if (!isAdmin) {
+    const { course: staticCourse } = await import("@/lib/course");
+    const totalModules = staticCourse.modules.length;
+    let doneCount = 0;
+    try {
+      if (enrollment.id.startsWith("demo-")) {
+        const en = (await loadDemo(enrollment.id)) as any;
+        doneCount = Array.isArray(en?.progress) ? en.progress.filter((p: any) => p.completed).length : 0;
+      } else {
+        doneCount = await prisma.enrollmentProgress.count({ where: { enrollmentId: enrollment.id, completed: true } });
+      }
+    } catch { doneCount = 0; }
+    const adminMarked = enrollment.status === "COMPLETED";
+    if (!adminMarked && doneCount < totalModules) {
+      return new NextResponse(`Complete all ${totalModules} modules to unlock your certificate (${doneCount}/${totalModules} done). Admin marks complete after review.`, { status: 403 });
+    }
   }
 
   if (!enrollment.certificateNo) {

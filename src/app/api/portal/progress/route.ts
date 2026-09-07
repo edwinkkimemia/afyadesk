@@ -3,6 +3,17 @@ import { getPortalSession } from "@/lib/portal";
 import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { readDemoEnrollments, writeDemoEnrollments, isDbAuthError } from "@/lib/demo";
+import { course as staticCourse } from "@/lib/course";
+
+const MODULE_ORDER = staticCourse.modules.map((m) => m.n);
+const previousOf = (n: string) => {
+  const i = MODULE_ORDER.indexOf(n);
+  return i > 0 ? MODULE_ORDER.slice(0, i) : [];
+};
+const laterOf = (n: string) => {
+  const i = MODULE_ORDER.indexOf(n);
+  return i >= 0 ? MODULE_ORDER.slice(i + 1) : [];
+};
 
 const schema = z.object({
   moduleNumber: z.string(),
@@ -35,6 +46,16 @@ export async function POST(req: NextRequest) {
 
   const { moduleNumber, completed } = parsed.data;
   try {
+    // sequential guard: complete in order, unmark in reverse order
+    const existing = await prisma.enrollmentProgress.findMany({ where: { enrollmentId: sess.enrollmentId } });
+    const doneSet = new Set(existing.filter((p) => p.completed).map((p) => p.moduleNumber));
+    if (completed) {
+      const missing = previousOf(moduleNumber).find((n) => !doneSet.has(n) && n !== moduleNumber);
+      if (missing) return NextResponse.json({ error: `Complete Module ${missing} first before Module ${moduleNumber}.` }, { status: 403 });
+    } else if (doneSet.has(moduleNumber)) {
+      const blocker = laterOf(moduleNumber).find((n) => doneSet.has(n));
+      if (blocker) return NextResponse.json({ error: `Unmark Module ${blocker} first before reopening Module ${moduleNumber}.` }, { status: 403 });
+    }
     const upsert = await prisma.enrollmentProgress.upsert({
       where: { enrollmentId_moduleNumber: { enrollmentId: sess.enrollmentId, moduleNumber } },
       update: { completed, completedAt: completed ? new Date() : null },
@@ -48,6 +69,14 @@ export async function POST(req: NextRequest) {
       if (idx === -1) return NextResponse.json({ error: "Enrollment not found (demo)" }, { status: 404 });
       const enrollment = arr[idx];
       if (!Array.isArray(enrollment.progress)) enrollment.progress = [];
+      const doneSet = new Set(enrollment.progress.filter((p: any) => p.completed).map((p: any) => p.moduleNumber));
+      if (completed) {
+        const missing = previousOf(moduleNumber).find((n) => !doneSet.has(n) && n !== moduleNumber);
+        if (missing) return NextResponse.json({ error: `Complete Module ${missing} first before Module ${moduleNumber}.` }, { status: 403 });
+      } else if (doneSet.has(moduleNumber)) {
+        const blocker = laterOf(moduleNumber).find((n) => doneSet.has(n));
+        if (blocker) return NextResponse.json({ error: `Unmark Module ${blocker} first before reopening Module ${moduleNumber}.` }, { status: 403 });
+      }
       const pIdx = enrollment.progress.findIndex((p: any) => p.moduleNumber === moduleNumber);
       const now = new Date().toISOString();
       if (pIdx !== -1) {

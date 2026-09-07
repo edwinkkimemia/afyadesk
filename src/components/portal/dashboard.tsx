@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Check, FileText, Video, Presentation, Link as LinkIcon, Award, LogOut, Download, BookOpen } from "lucide-react";
+import { Check, FileText, Video, Presentation, Link as LinkIcon, Award, LogOut, Download, BookOpen, Lock } from "lucide-react";
 
 export function PortalDashboard({ enrollment, course, materials, progress }: any) {
   const [updating, setUpdating] = useState<string | null>(null);
@@ -14,11 +14,25 @@ export function PortalDashboard({ enrollment, course, materials, progress }: any
   const pct = Math.round((completedCount / total) * 100);
 
   const isCompleted = enrollment.status === "COMPLETED" || enrollment.hasCompletedCourse;
+  // certificate unlocks only on admin mark OR all modules actually done
+  const eligible = enrollment.status === "COMPLETED" || completedCount >= total;
 
   async function toggleModule(mod: string) {
     const currently = progressMap.get(mod) || false;
     setUpdating(mod);
-    await fetch("/api/portal/progress", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ moduleNumber: mod, completed: !currently }) });
+    try {
+      const res = await fetch("/api/portal/progress", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ moduleNumber: mod, completed: !currently }) });
+      if (!res.ok) {
+        const j = await res.json().catch(() => null);
+        alert(j?.error || "Could not update progress. Complete modules in order.");
+        return;
+      }
+    } catch (e: any) {
+      alert(e.message || "Update failed");
+      return;
+    } finally {
+      setUpdating(null);
+    }
     window.location.reload();
   }
 
@@ -98,33 +112,52 @@ export function PortalDashboard({ enrollment, course, materials, progress }: any
             <Award className="h-8 w-8 text-[#0F8B8D] shrink-0" />
             <div className="flex-1">
               <div className="font-bold text-[#0B1F33]">Your Certificate</div>
-              <div className="text-sm text-[#5B6B80]">Download your verified certificate (PDF) with name, date & director.</div>
+              <div className="text-sm text-[#5B6B80]">
+                {eligible
+                  ? "Download your verified certificate (PDF) with name, date & director."
+                  : `Complete all ${total} modules to unlock (${completedCount}/${total} done).`}
+              </div>
             </div>
-            <button onClick={downloadCertificate} className="h-11 px-6 rounded-full bg-[#0B1F33] text-white text-sm font-semibold flex items-center gap-2 hover:bg-black"><Download className="h-4 w-4" /> Download Certificate</button>
+            {eligible ? (
+              <button onClick={downloadCertificate} className="h-11 px-6 rounded-full bg-[#0B1F33] text-white text-sm font-semibold flex items-center gap-2 hover:bg-black"><Download className="h-4 w-4" /> Download Certificate</button>
+            ) : (
+              <span className="h-11 px-6 rounded-full bg-[#F8FAFC] border border-[#E6EEF6] text-[#8A9BB0] text-sm font-semibold flex items-center gap-2 cursor-not-allowed"><Lock className="h-4 w-4" /> Locked</span>
+            )}
           </div>
 
           <div className="space-y-3">
             <h2 className="font-bold text-[#0B1F33] flex items-center gap-2"><BookOpen className="h-5 w-5 text-[#0F8B8D]" /> 20 Modules</h2>
-            {course.modules.map((m: any) => {
+            {course.modules.map((m: any, idx: number) => {
               const mats = materials.filter((x: any) => x.moduleNumber === m.n);
               const done = progressMap.get(m.n) || false;
+              // sequential: module unlocks only when the previous one is complete
+              const prev = idx > 0 ? course.modules[idx - 1] : null;
+              const locked = !done && prev && !progressMap.get(prev.n);
+              // keep the chain intact: can't unmark a module while a later one is done
+              const laterDone = done && course.modules.slice(idx + 1).find((x: any) => progressMap.get(x.n));
               return (
                 <details key={m.n} className="group rounded-2xl bg-white border border-[#E6EEF6] open:shadow-sm" open={m.n === "01"}>
                   <summary className="list-none flex gap-3 p-4 cursor-pointer items-center">
-                    <span className={`h-9 w-9 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 ${done ? "bg-emerald-500 text-white" : "bg-[#0B1F33] text-white"}`}>{done ? <Check className="h-5 w-5" /> : m.n}</span>
+                    <span className={`h-9 w-9 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 ${done ? "bg-emerald-500 text-white" : locked ? "bg-[#E6EEF6] text-[#8A9BB0]" : "bg-[#0B1F33] text-white"}`}>{done ? <Check className="h-5 w-5" /> : locked ? <Lock className="h-4 w-4" /> : m.n}</span>
                     <div className="flex-1">
                       <div className="font-semibold text-[#0B1F33] text-sm">{m.title}</div>
-                      <div className="text-xs text-[#5B6B80]">{mats.length} resources</div>
+                      <div className="text-xs text-[#5B6B80]">{mats.length} resources{locked && prev ? <span className="text-amber-600 font-medium"> • Complete Module {prev.n} first</span> : ""}</div>
                     </div>
                     <button
                       onClick={(e) => {
                         e.preventDefault();
+                        if (locked) return;
+                        if (laterDone) {
+                          alert(`Unmark Module ${laterDone.n} first before reopening this module.`);
+                          return;
+                        }
                         toggleModule(m.n);
                       }}
-                      disabled={!!updating}
-                      className={`h-8 px-3 rounded-full text-xs font-semibold border ${done ? "bg-emerald-50 border-emerald-200 text-emerald-700" : "bg-[#F8FAFC] border-[#E6EEF6] text-[#0B1F33] hover:bg-white"}`}
+                      disabled={!!updating || !!locked}
+                      title={locked && prev ? `Complete Module ${prev.n} first` : undefined}
+                      className={`h-8 px-3 rounded-full text-xs font-semibold border flex items-center gap-1 ${done ? "bg-emerald-50 border-emerald-200 text-emerald-700" : locked ? "bg-[#F8FAFC] border-[#E6EEF6] text-[#8A9BB0] cursor-not-allowed" : "bg-[#F8FAFC] border-[#E6EEF6] text-[#0B1F33] hover:bg-white"}`}
                     >
-                      {updating === m.n ? "..." : done ? "Completed" : "Mark done"}
+                      {updating === m.n ? "..." : done ? "Completed" : locked ? (<><Lock className="h-3 w-3" /> Locked</>) : "Mark done"}
                     </button>
                   </summary>
                   <div className="px-4 pb-4 space-y-3">
@@ -168,16 +201,21 @@ export function PortalDashboard({ enrollment, course, materials, progress }: any
 
           <div className="rounded-2xl bg-[#0B1F33] text-white p-6">
             <h4 className="font-bold">Certificate</h4>
-            {isCompleted ? (
+            {eligible ? (
               <>
                 <p className="text-sm text-white/70 mt-2">Your certificate is ready. Includes your name, completion date and director signature.</p>
                 <button onClick={downloadCertificate} className="mt-4 flex w-full h-11 rounded-full bg-white text-[#0B1F33] font-semibold text-sm items-center justify-center gap-2"><Download className="h-4 w-4" /> Download PDF</button>
-                <p className="text-xs text-white/50 mt-2 text-center">No: {enrollment.certificateNo}</p>
+                {enrollment.certificateNo && <p className="text-xs text-white/50 mt-2 text-center">No: {enrollment.certificateNo}</p>}
               </>
-            ) : (
+            ) : isCompleted ? (
               <>
                 <p className="text-sm text-white/70 mt-2">Complete all modules. Admin will then mark you as COMPLETED — certificate generates automatically with date & director.</p>
                 <div className="mt-4 rounded-xl bg-white/10 border border-white/15 p-3 text-xs text-white/70">Director: Dr. Grace Wanjiku, Director — AfyaDesk</div>
+              </>
+            ) : (
+              <>
+                <p className="text-sm text-white/70 mt-2">Locked — complete all {total} modules ({completedCount}/{total} done). Admin marks you COMPLETED after review, then download unlocks.</p>
+                <span className="mt-4 flex w-full h-11 rounded-full bg-white/10 border border-white/15 text-white/50 font-semibold text-sm items-center justify-center gap-2 cursor-not-allowed"><Lock className="h-4 w-4" /> Locked</span>
               </>
             )}
           </div>
