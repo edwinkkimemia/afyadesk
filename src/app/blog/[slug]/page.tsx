@@ -66,6 +66,24 @@ export default async function BlogPostPage({ params }: Props) {
   if (!post) notFound();
   const body = contentMap[post.slug] || contentMap.default;
   const isHtml = /<\s*(p|h2|h3|ul|ol|li|strong|em|blockquote|a)\b/i.test(body);
+  // light markdown → HTML for plain-text bodies (**bold**, "- " bullets, "1. " steps)
+  const mdHtml = body
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .split(/\n{2,}/)
+    .map((block) => {
+      const lines = block.trim().split("\n").map((l) => l.trim()).filter(Boolean);
+      if (lines.length && lines.every((l) => /^-\s+/.test(l))) {
+        return `<ul>${lines.map((l) => `<li>${l.replace(/^-\s+/, "")}</li>`).join("")}</ul>`;
+      }
+      if (lines.length && lines.every((l) => /^\d+\.\s+/.test(l))) {
+        return `<ol>${lines.map((l) => `<li>${l.replace(/^\d+\.\s+/, "")}</li>`).join("")}</ol>`;
+      }
+      return `<p>${lines.join("<br />")}</p>`;
+    })
+    .join("");
   const openRoles = careers.slice(0, 4);
   const related = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 3);
 
@@ -126,7 +144,10 @@ export default async function BlogPostPage({ params }: Props) {
               dangerouslySetInnerHTML={{ __html: body }}
             />
           ) : (
-            <article className="prose prose-sm max-w-none mt-6 text-[#172033] whitespace-pre-line leading-7">{body}</article>
+            <article
+              className="prose prose-sm max-w-none mt-6 text-[#172033] leading-7 [&_p]:mt-3 [&_strong]:text-[#0B1F33] [&_ul]:list-disc [&_ul]:pl-5 [&_ul]:mt-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_ol]:mt-2 [&_li]:mt-1"
+              dangerouslySetInnerHTML={{ __html: mdHtml }}
+            />
           )}
 
           <div className="mt-8 rounded-2xl bg-[#F8FAFC] border border-[#E6EEF6] p-6 flex flex-col md:flex-row gap-4 items-center justify-between">

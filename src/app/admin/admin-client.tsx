@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input, Select, Label, Textarea } from "@/components/ui/input";
 import { ImageUpload } from "@/components/ui/image-upload";
 import { RichTextEditor } from "@/components/ui/rich-text-editor";
+import { bundledModuleMaterials } from "@/lib/course-materials";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -461,64 +462,24 @@ export default function AdminDashboardClient({ user }: { user: any }) {
               </div>
 
               <div className="rounded-2xl bg-white border border-[#E6EEF6] p-6">
-                <h3 className="font-bold text-[#0B1F33]">Module Materials — PDF / PPTX / VIDEO per module</h3>
-                <p className="text-sm text-[#5B6B80]">Admin can add resources for each of the 20 modules. Portal students will see them when enrolled & paid. Upload via /api/upload (supports pdf/pptx/mp4) then link.</p>
-                <form onSubmit={createMaterial} className="mt-4 grid md:grid-cols-2 gap-4">
-                  <div>
-                    <Label>Module Number *</Label>
-                    <select value={matForm.moduleNumber} onChange={(e) => setMatForm({ ...matForm, moduleNumber: e.target.value })} className="flex h-11 w-full rounded-xl border border-[#E6EEF6] bg-white px-4 py-2 text-sm">
-                      {Array.from({ length: 20 }, (_, i) => String(i + 1).padStart(2, "0")).map((n) => (
-                        <option key={n} value={n}>Module {n}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <Label>Type *</Label>
-                    <select value={matForm.type} onChange={(e) => setMatForm({ ...matForm, type: e.target.value as any })} className="flex h-11 w-full rounded-xl border border-[#E6EEF6] bg-white px-4 py-2 text-sm">
-                      <option value="PDF">PDF</option>
-                      <option value="PPTX">PPTX</option>
-                      <option value="VIDEO">VIDEO</option>
-                      <option value="LINK">LINK</option>
-                    </select>
-                  </div>
-                  <div className="md:col-span-2">
-                    <Label>Title *</Label>
-                    <Input value={matForm.title} onChange={(e) => setMatForm({ ...matForm, title: e.target.value })} placeholder="e.g. Module 01 Slides" required />
-                  </div>
-                  <div className="md:col-span-2">
-                    <Label>URL (upload or paste) *</Label>
-                    <div className="flex gap-2">
-                      <Input value={matForm.url} onChange={(e) => setMatForm({ ...matForm, url: e.target.value })} placeholder="/uploads/... or https://..." required className="flex-1" />
-                      <label className="h-11 px-4 rounded-xl border border-[#E6EEF6] bg-[#F8FAFC] text-sm font-medium flex items-center cursor-pointer hover:bg-white">
-                        Upload
-                        <input
-                          type="file"
-                          accept=".pdf,.pptx,.ppt,.mp4,.webm,.mov"
-                          className="hidden"
-                          onChange={async (e) => {
-                            const f = e.target.files?.[0];
-                            if (!f) return;
-                            const fd = new FormData();
-                            fd.append("file", f);
-                            const res = await fetch("/api/upload", { method: "POST", body: fd });
-                            const j = await res.json();
-                            if (res.ok) setMatForm({ ...matForm, url: j.url });
-                            else alert(j.error);
-                          }}
-                        />
-                      </label>
-                    </div>
-                    <p className="text-xs text-[#8A9BB0] mt-1">Upload PDF/PPTX/VIDEO (max 25MB) or paste external link.</p>
-                  </div>
-                  <div className="md:col-span-2">
-                    <Button type="submit" size="lg">Add Material</Button>
-                    {matMsg && <span className="ml-3 text-sm text-emerald-700">{matMsg}</span>}
-                  </div>
-                </form>
+                <h3 className="font-bold text-[#0B1F33]">Module Materials — bundled PDFs (Modules 1–20)</h3>
+                <p className="text-sm text-[#5B6B80]">Students are served the PDFs in <span className="font-mono text-xs bg-[#F8FAFC] border border-[#E6EEF6] px-1.5 py-0.5 rounded">public/modules/module1.pdf … module20.pdf</span> automatically. To update a module, replace its PDF file — no upload needed.</p>
+                <div className="mt-4 grid sm:grid-cols-2 gap-2 max-h-[300px] overflow-y-auto">
+                  {bundledModuleMaterials.map((m) => (
+                    <a key={m.id} href={m.url} target="_blank" className="flex items-center justify-between p-3 rounded-xl bg-[#F8FAFC] border border-[#E6EEF6] text-sm hover:bg-white">
+                      <span className="font-medium text-[#0B1F33]">Module {m.moduleNumber} • PDF</span>
+                      <span className="text-xs font-semibold text-[#0F8B8D]">Open →</span>
+                    </a>
+                  ))}
+                </div>
 
-                <div className="mt-6 space-y-2 max-h-[400px] overflow-y-auto">
+                <div className="mt-6">
+                  <h4 className="text-sm font-semibold text-[#0B1F33]">Extra DB materials (optional overrides)</h4>
+                  <p className="text-xs text-[#8A9BB0] mt-0.5">Only listed here if previously uploaded — these take precedence per module. Delete to fall back to bundled PDFs.</p>
+                </div>
+                <div className="mt-3 space-y-2 max-h-[400px] overflow-y-auto">
                   {materials.length === 0 ? (
-                    <p className="text-sm text-[#5B6B80]">No materials yet. Add per module above.</p>
+                    <p className="text-sm text-[#5B6B80]">No extra DB materials — students get the bundled PDFs.</p>
                   ) : (
                     materials.map((m) => (
                       <div key={m.id} className="flex items-center justify-between p-3 rounded-xl bg-[#F8FAFC] border border-[#E6EEF6] text-sm">

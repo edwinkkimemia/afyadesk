@@ -60,15 +60,17 @@ export default async function PortalPage() {
 
   course = enrollment.course;
   try {
-    materials = await prisma.courseMaterial.findMany({
+    const dbMaterials = await prisma.courseMaterial.findMany({
       where: { courseId: course.id },
       orderBy: [{ moduleNumber: "asc" }, { order: "asc" }],
     });
+    const { withBundledMaterials } = await import("@/lib/course-materials");
+    materials = withBundledMaterials(dbMaterials);
   } catch {
     try {
-      const { readDemoEnrollments } = await import("@/lib/demo");
-      // demo materials fallback: return empty for demo course
-      materials = [];
+      const { bundledModuleMaterials } = await import("@/lib/course-materials");
+      // demo / DB-unavailable fallback: serve bundled module PDFs
+      materials = bundledModuleMaterials;
     } catch { materials = []; }
   }
 

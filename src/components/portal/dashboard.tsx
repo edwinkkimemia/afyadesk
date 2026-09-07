@@ -143,7 +143,7 @@ export function PortalDashboard({ enrollment, course, materials, progress }: any
                         ))}
                       </div>
                     ) : (
-                      <p className="text-xs text-[#8A9BB0] bg-amber-50 border border-amber-200 rounded-xl p-3">No materials yet for this module — admin will add PDF/PPTX/VIDEO. Check back soon.</p>
+                      <p className="text-xs text-[#8A9BB0] bg-amber-50 border border-amber-200 rounded-xl p-3">Module PDF unavailable — please contact support.</p>
                     )}
                   </div>
                 </details>

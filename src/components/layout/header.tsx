@@ -144,7 +144,7 @@ export function Header() {
       </div>
 
       {open && (
-        <div className="lg:hidden border-t border-[#E6EEF6] bg-white max-h-[75vh] overflow-y-auto">
+        <div className="lg:hidden absolute inset-x-0 top-full border-t border-[#E6EEF6] bg-white shadow-xl max-h-[75vh] overflow-y-auto">
           <nav className="px-4 py-4 flex flex-col gap-1">
             {nav.map((n) =>
               n.dropdown ? (
