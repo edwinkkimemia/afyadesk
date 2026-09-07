@@ -3,9 +3,9 @@ import Image from "next/image";
 import { services } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { BreadcrumbHero } from "@/components/ui/breadcrumb-hero";
-import { Stethoscope, Phone, FileText, Receipt, HeartHandshake, Database, Video, ArrowRight } from "lucide-react";
+import { Stethoscope, Phone, FileText, Receipt, HeartHandshake, Database, Video, ArrowRight, Calendar, PenLine, ShieldCheck, Smile, Headset, BadgeCheck } from "lucide-react";
 
-const iconMap: any = { Stethoscope, Phone, FileText, Receipt, HeartHandshake, Database, Video };
+const iconMap: any = { Stethoscope, Phone, FileText, Receipt, HeartHandshake, Database, Video, Calendar, PenLine, ShieldCheck, Smile, Headset, BadgeCheck };
 
 export const metadata = { title: "Services — Medical Virtual Assistants & Healthcare Support" };
 

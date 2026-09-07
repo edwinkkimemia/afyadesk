@@ -19,6 +19,12 @@ async function main() {
     { slug: "patient-support", title: "Patient Support", description: "Onboarding, follow-ups, care coordination.", icon: "HeartHandshake", order: 5 },
     { slug: "medical-data-administration", title: "Medical Data & Administration", description: "EMR admin, data entry, records and reporting.", icon: "Database", order: 6 },
     { slug: "telehealth-support", title: "Telehealth Support", description: "Virtual care coordination for telemedicine.", icon: "Video", order: 7 },
+    { slug: "appointment-scheduling", title: "Appointment Scheduling & Coordination", description: "High-volume booking, waitlists & reminders.", icon: "Calendar", order: 8 },
+    { slug: "medical-scribe-support", title: "Medical Scribe & Documentation Support", description: "Note formatting and dictation support.", icon: "PenLine", order: 9 },
+    { slug: "insurance-verification", title: "Insurance Verification & Prior Authorization", description: "Eligibility checks and prior-auth admin.", icon: "ShieldCheck", order: 10 },
+    { slug: "dental-support", title: "Dental Practice Support", description: "Recalls, follow-ups & dental front-desk.", icon: "Smile", order: 11 },
+    { slug: "healthcare-helpdesk", title: "Healthcare Helpdesk & Live Chat", description: "Chat, email and phone patient support.", icon: "Headset", order: 12 },
+    { slug: "credentialing-support", title: "Provider Credentialing Support", description: "Credentialing admin and renewals.", icon: "BadgeCheck", order: 13 },
   ];
 
   for (const s of services) {

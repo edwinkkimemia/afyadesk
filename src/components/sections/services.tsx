@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { Stethoscope, Phone, FileText, Receipt, HeartHandshake, Database, Video, ArrowRight } from "lucide-react";
+import { Stethoscope, Phone, FileText, Receipt, HeartHandshake, Database, Video, ArrowRight, Calendar, PenLine, ShieldCheck, Smile, Headset, BadgeCheck } from "lucide-react";
 import { services } from "@/lib/data";
 
 const iconMap: Record<string, any> = {
-  Stethoscope, Phone, FileText, Receipt, HeartHandshake, Database, Video,
+  Stethoscope, Phone, FileText, Receipt, HeartHandshake, Database, Video, Calendar, PenLine, ShieldCheck, Smile, Headset, BadgeCheck,
 };
 
 export function ServicesSection() {

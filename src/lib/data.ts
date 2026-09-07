@@ -107,6 +107,96 @@ export const services = [
     ],
     color: "teal",
   },
+  {
+    slug: "appointment-scheduling",
+    title: "Appointment Scheduling & Coordination",
+    description:
+      "High-volume booking, waitlist management and reminders across time zones — fewer no-shows, fuller schedules.",
+    icon: "Calendar",
+    coverImage: "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?auto=format&fit=crop&w=1200&q=80",
+    features: [
+      "High-volume booking & rescheduling",
+      "Waitlist management & gap filling",
+      "SMS/email/phone reminders",
+      "Multi-provider calendar coordination",
+    ],
+    color: "blue",
+  },
+  {
+    slug: "medical-scribe-support",
+    title: "Medical Scribe & Documentation Support",
+    description:
+      "Live documentation help — consultation notes formatted, dictations structured, EMR queues kept current.",
+    icon: "PenLine",
+    coverImage: "https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=1200&q=80",
+    features: [
+      "Consultation note formatting",
+      "Dictation structuring & templates",
+      "EMR documentation queues",
+      "Referral letter preparation",
+    ],
+    color: "navy",
+  },
+  {
+    slug: "insurance-verification",
+    title: "Insurance Verification & Prior Authorization",
+    description:
+      "Eligibility checks, prior-auth paperwork and coverage follow-ups — visits and claims keep moving.",
+    icon: "ShieldCheck",
+    coverImage: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1200&q=80",
+    features: [
+      "Eligibility & benefits verification",
+      "Prior-authorization admin & tracking",
+      "SHA/SHIF & private insurer docs",
+      "Denial-prevention checks",
+    ],
+    color: "teal",
+  },
+  {
+    slug: "dental-support",
+    title: "Dental Practice Support",
+    description:
+      "Recalls, treatment follow-ups and front-desk overflow for dental practices — keeping chairs full.",
+    icon: "Smile",
+    coverImage: "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=1200&q=80",
+    features: [
+      "Recall & hygiene reminders",
+      "Treatment-plan follow-ups",
+      "New-patient booking",
+      "Dental records admin",
+    ],
+    color: "blue",
+  },
+  {
+    slug: "healthcare-helpdesk",
+    title: "Healthcare Helpdesk & Live Chat",
+    description:
+      "Fast, empathetic chat, email and phone support — onboarding, inquiries and education admin handled.",
+    icon: "Headset",
+    coverImage: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80",
+    features: [
+      "Live chat & messaging support",
+      "Patient onboarding & education admin",
+      "Non-clinical inquiry handling",
+      "Escalation to clinical staff",
+    ],
+    color: "navy",
+  },
+  {
+    slug: "credentialing-support",
+    title: "Provider Credentialing Support",
+    description:
+      "Detail-driven credentialing admin — applications, verifications, renewals and audit-ready documentation.",
+    icon: "BadgeCheck",
+    coverImage: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80",
+    features: [
+      "Credentialing applications & packets",
+      "License & certification tracking",
+      "Payer enrollment admin",
+      "Renewal reminders & audits",
+    ],
+    color: "teal",
+  },
 ];
 
 export const testimonials = [
