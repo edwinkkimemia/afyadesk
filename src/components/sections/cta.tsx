@@ -10,13 +10,13 @@ export function CTASection() {
           <div className="absolute inset-0 bg-[radial-gradient(600px_circle_at_80%_0%,rgba(255,255,255,0.12),transparent_60%)]" />
           <div className="relative">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Ready to scale your healthcare practice?</h2>
-            <p className="mt-2 text-white/70 max-w-xl">Book a free consultation. We&apos;ll map your workflow and recommend the right support model — no obligation.</p>
-            <div className="mt-2 text-xs text-white/50">Kenyan Talent • Healthcare-Focused • Remote • Scalable • Secure</div>
+            <p className="mt-2 text-white/70 max-w-xl">Hire trained talent. We&apos;ll map your workflow and recommend the right support model — no obligation.</p>
+            <div className="mt-2 text-xs text-white/50">Kenyan Talent • Serving Clients Globally • Secure • Scalable</div>
           </div>
           <div className="relative flex flex-col sm:flex-row gap-3 shrink-0 w-full lg:w-auto">
-            <Link href="/contact" className="w-full sm:w-auto">
+            <Link href="/hire" className="w-full sm:w-auto">
               <Button size="xl" className="w-full bg-white text-[#0B1F33] hover:bg-[#F1F5F9]">
-                Book a Free Consultation <ArrowRight className="h-4 w-4" />
+                Hire Talent <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
             <Link href="/contact" className="w-full sm:w-auto">

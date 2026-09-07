@@ -23,7 +23,7 @@ Open http://localhost:3000
 ```
 DATABASE_URL="postgresql://user:password@localhost:5432/afyadesk?schema=public"
 AUTH_SECRET="replace-with-32+char-random-secret"
-ADMIN_EMAIL="admin@afyadesk.co.ke"
+ADMIN_EMAIL="admin@afyadesk.com"
 ADMIN_PASSWORD="Admin123!"
 ```
 
@@ -50,7 +50,7 @@ If `DATABASE_URL` is not set, forms still succeed in demo mode (logged to consol
 ## Admin Access
 
 - Visit `/admin/login`
-- Demo: `admin@afyadesk.co.ke` / `Admin123!`
+- Demo: `admin@afyadesk.com` / `Admin123!`
 - Or create user via DB and login
 
 ## Prisma

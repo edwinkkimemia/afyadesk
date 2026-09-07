@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Upload, FileText, X, CheckCircle2 } from "lucide-react";
 import { Input, Textarea, Label, Select } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { careers } from "@/lib/careers";
 
 export function CareerForm({ defaultPosition }: { defaultPosition?: string }) {
   const [loading, setLoading] = useState(false);
@@ -14,6 +15,35 @@ export function CareerForm({ defaultPosition }: { defaultPosition?: string }) {
   const [certificateName, setCertificateName] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [resumeUrl, setResumeUrl] = useState<string | null>(null);
+  const [resumeName, setResumeName] = useState<string | null>(null);
+  const [resumeUploading, setResumeUploading] = useState(false);
+  const [resumeError, setResumeError] = useState<string | null>(null);
+
+  async function handleResumeFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setResumeError(null);
+    if (file.size > 10 * 1024 * 1024) {
+      setResumeError("File too large — max 10MB (PDF, DOC, DOCX, JPG, PNG, WEBP)");
+      return;
+    }
+    setResumeUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch("/api/resume-upload", { method: "POST", body: fd });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Upload failed");
+      setResumeUrl(json.url);
+      setResumeName(file.name);
+    } catch (err: any) {
+      setResumeError(err.message || "Upload failed");
+    } finally {
+      setResumeUploading(false);
+      e.target.value = "";
+    }
+  }
 
   async function handleCertificateFile(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -50,6 +80,12 @@ export function CareerForm({ defaultPosition }: { defaultPosition?: string }) {
     // checkbox handling: FormData returns "on" if checked
     const hasCompletedCourse = hasCourse || data.hasCompletedCourse === "on" || data.hasCompletedCourse === "true";
 
+    if (!resumeUrl) {
+      setError("Please upload your resume file (PDF, DOC, DOCX, JPG, PNG) — links are no longer accepted.");
+      setLoading(false);
+      return;
+    }
+
     if (hasCompletedCourse && !certificateUrl) {
       setError("You ticked 'I've completed the course' — please upload your Course Certificate file (PDF, JPG, PNG) so we can verify and prioritise your application.");
       setLoading(false);
@@ -58,6 +94,7 @@ export function CareerForm({ defaultPosition }: { defaultPosition?: string }) {
 
     const payload: any = {
       ...data,
+      resumeUrl: resumeUrl || undefined,
       hasCompletedCourse,
       courseCertificateUrl: certificateUrl || undefined,
     };
@@ -76,6 +113,9 @@ export function CareerForm({ defaultPosition }: { defaultPosition?: string }) {
       setHasCourse(false);
       setCertificateUrl(null);
       setCertificateName(null);
+      setResumeUrl(null);
+      setResumeName(null);
+      setResumeError(null);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -122,12 +162,11 @@ export function CareerForm({ defaultPosition }: { defaultPosition?: string }) {
           <Label>Position *</Label>
           <Select name="position" required defaultValue={defaultPosition || ""}>
             <option value="">Select position</option>
-            <option>Medical Virtual Assistant</option>
-            <option>Medical Receptionist</option>
-            <option>Medical Transcriptionist</option>
-            <option>Healthcare Customer Support</option>
-            <option>Medical Administrative Assistant</option>
-            <option>Medical Billing Assistant</option>
+            {careers.map((c) => (
+              <option key={c.slug} value={c.title}>
+                {c.title}
+              </option>
+            ))}
           </Select>
         </div>
         <div>
@@ -141,9 +180,57 @@ export function CareerForm({ defaultPosition }: { defaultPosition?: string }) {
           </Select>
         </div>
       </div>
-      <div>
-        <Label>Resume URL (optional)</Label>
-        <Input name="resumeUrl" placeholder="Link to CV / Drive / LinkedIn" />
+      <div className="rounded-xl border border-[#E6EEF6] bg-[#F8FAFC] p-4 space-y-3">
+        <Label className="flex items-center gap-1.5">
+          <Upload className="h-3.5 w-3.5 text-[#0F8B8D]" /> Resume / CV File *
+        </Label>
+
+        {!resumeUrl ? (
+          <label className="flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-[#E6EEF6] bg-white px-6 py-6 text-center cursor-pointer hover:border-[#0F8B8D]/40 hover:bg-[#F8FAFC] transition">
+            <div className="h-10 w-10 rounded-xl bg-[#EAF6FF] border border-[#E6EEF6] flex items-center justify-center">
+              <FileText className="h-5 w-5 text-[#0F8B8D]" />
+            </div>
+            <div className="text-sm font-semibold text-[#0B1F33]">{resumeUploading ? "Uploading..." : "Upload Resume"}</div>
+            <div className="text-xs text-[#5B6B80]">PDF, DOC, DOCX, JPG, PNG or WEBP • Max 10MB</div>
+            <input
+              type="file"
+              accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/png,image/webp"
+              className="hidden"
+              onChange={handleResumeFile}
+              disabled={resumeUploading}
+            />
+            {resumeError && <p className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-1.5 mt-2">{resumeError}</p>}
+          </label>
+        ) : (
+          <div className="flex items-center gap-3 rounded-xl bg-white border border-emerald-200 p-3">
+            <div className="h-10 w-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center shrink-0">
+              <CheckCircle2 className="h-5 w-5 text-emerald-600" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-sm font-semibold text-[#0B1F33] truncate">{resumeName}</div>
+              <a href={resumeUrl} target="_blank" className="text-xs text-[#0F8B8D] underline truncate block">
+                {resumeUrl}
+              </a>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setResumeUrl(null);
+                setResumeName(null);
+                setResumeError(null);
+              }}
+              className="h-8 w-8 rounded-full bg-[#F8FAFC] border border-[#E6EEF6] flex items-center justify-center hover:bg-red-50 hover:border-red-200 shrink-0"
+              aria-label="Remove resume"
+            >
+              <X className="h-4 w-4 text-[#5B6B80]" />
+            </button>
+          </div>
+        )}
+
+        <p className="text-xs text-[#5B6B80] leading-4">
+          Upload your CV directly. Accepted: <span className="font-medium text-[#0B1F33]">PDF / DOC / DOCX / JPG / PNG / WEBP</span> • Max 10MB.
+        </p>
+        <input type="hidden" name="resumeUrl" value={resumeUrl || ""} />
       </div>
 
       <div className="rounded-xl bg-amber-50 border border-amber-200 p-3 flex gap-3 items-start">
@@ -224,7 +311,7 @@ export function CareerForm({ defaultPosition }: { defaultPosition?: string }) {
         <Textarea name="message" placeholder="Briefly describe your background, skills and why you want to join AfyaDesk..." rows={4} />
       </div>
       {error && <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2">{error}</p>}
-      <Button type="submit" size="xl" disabled={loading} className="w-full">
+      <Button type="submit" size="xl" disabled={loading || resumeUploading || uploading} className="w-full">
         {loading ? "Submitting..." : "Apply to Join AfyaDesk"}
       </Button>
       <p className="text-xs text-center text-[#8A9BB0]">Course graduates are flagged and reviewed first • <Link href="/course" className="underline">Learn about course</Link></p>

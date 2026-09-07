@@ -4,15 +4,15 @@ import { careers } from "@/lib/careers";
 import { ArrowRight, Clock, MapPin, DollarSign, GraduationCap, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export const metadata = { title: "Careers — Remote Healthcare Jobs in Kenya | AfyaDesk" };
+export const metadata = { title: "Careers — Remote Healthcare Jobs with Global Opportunities | AfyaDesk" };
 
 export default function CareersPage() {
   return (
     <div>
       <BreadcrumbHero
         eyebrow="Careers at AfyaDesk"
-        title="Remote Healthcare Careers, Built for Kenya"
-        description="Join AfyaDesk — Kenya’s healthcare support platform connecting skilled professionals to hospitals, clinics and global health teams. Flexible remote work, transparent pay, real growth — not gig work."
+        title="Remote Healthcare Careers with Global Opportunities"
+        description="Join AfyaDesk — Kenya’s healthcare support platform connecting skilled professionals to hospitals, clinics and health teams worldwide. Flexible remote work, transparent pay, global exposure, real growth — not gig work."
         breadcrumb={[{ label: "Careers", href: "/careers" }]}
       >
         <Link href="/careers/apply">
@@ -31,7 +31,7 @@ export default function CareersPage() {
             AfyaDesk hires for <span className="font-semibold text-[#0B1F33]">real healthcare operations</span> — scheduling, patient support, documentation, billing and telehealth coordination. No clinical diagnosis, no prescribing, no independent medical decisions. You support licensed clinicians so they can focus on patients. If you’re reliable, detail-driven and great with people, you’ll fit right in.
           </p>
           <p className="mt-2 text-sm leading-6 text-[#5B6B80]">
-            All roles are <span className="font-medium text-[#0B1F33]">remote from Kenya</span> with international exposure. Graduates of our <Link href="/course" className="text-[#0F8B8D] font-semibold hover:text-[#0B1F33]">Readiness Course</Link> are prioritised — but you can apply with or without it.
+            All roles are <span className="font-medium text-[#0B1F33]">remote with global client exposure</span> — support healthcare organizations worldwide. Graduates of our <Link href="/course" className="text-[#0F8B8D] font-semibold hover:text-[#0B1F33]">Readiness Course</Link> are prioritised — but you can apply with or without it.
           </p>
         </div>
 

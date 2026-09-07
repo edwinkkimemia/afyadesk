@@ -24,7 +24,7 @@ export default function PrivacyPage() {
           <h3>Kenya Data Protection Act</h3>
           <p>We design workflows around applicable Kenyan data-protection requirements and respect data subject rights. Contact us to exercise rights of access, correction or deletion.</p>
           <h3>Contact</h3>
-          <p>Email: hello@afyadesk.co.ke</p>
+          <p>Email: hello@afyadesk.com</p>
         </div>
       </div>
     </div>

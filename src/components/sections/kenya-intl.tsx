@@ -8,14 +8,15 @@ export function KenyaSection() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-2 gap-10 items-start">
           <div>
-            <p className="text-xs font-bold tracking-[0.14em] uppercase text-[#0F8B8D]">Built for Kenya</p>
+            <p className="text-xs font-bold tracking-[0.14em] uppercase text-[#0F8B8D]">Built for Kenya • Serving Globally</p>
             <h2 className="mt-2 text-[28px] md:text-[36px] font-bold tracking-tight text-[#0B1F33] leading-tight">
-              Built for Healthcare in Kenya
+              Built for Healthcare in Kenya, Trusted Globally
             </h2>
             <p className="mt-3 text-[#5B6B80] leading-7">
-              From Nairobi to Mombasa, Kisumu to Eldoret — we understand the Kenyan healthcare environment. AfyaDesk
-              supports private hospitals, clinics, medical centres, doctors’ practices, dental practices, laboratories,
-              pharmacies, telemedicine providers and health startups.
+              From Nairobi to Mombasa, Kisumu to Eldoret — we understand the Kenyan healthcare environment, and we
+              support healthcare organizations worldwide. AfyaDesk supports private hospitals, clinics, medical centres,
+              doctors’ practices, dental practices, laboratories, pharmacies, telemedicine providers and health startups
+              globally.
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
@@ -57,7 +58,7 @@ export function KenyaSection() {
                 </li>
               ))}
             </ul>
-            <Link href="/contact" className="mt-6 inline-block">
+            <Link href="/hire" className="mt-6 inline-block">
               <Button size="lg" className="bg-white text-[#0B1F33] hover:bg-[#F1F5F9] border-0">
                 Build Your Remote Healthcare Team
               </Button>

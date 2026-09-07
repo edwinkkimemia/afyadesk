@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Mail, Phone } from "lucide-react";
 
 export function Footer() {
   return (
@@ -21,7 +22,7 @@ export function Footer() {
               with trained remote medical support professionals.
             </p>
             <p className="mt-4 text-xs font-semibold tracking-wide text-white/60">
-              Kenya | Serving Healthcare Organizations Globally
+              Kenya-based • Serving Healthcare Organizations Globally
             </p>
             <div className="mt-6 rounded-2xl bg-white/10 border border-white/10 p-4 max-w-sm">
               <p className="text-xs leading-5 text-white/70">
@@ -31,16 +32,16 @@ export function Footer() {
               </p>
             </div>
             <div className="mt-6 flex gap-3">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="h-9 w-9 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white hover:text-[#0B1F33] text-white transition">
+              <a href="https://www.linkedin.com/company/afyadeskhealth" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="h-9 w-9 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white hover:text-[#0B1F33] text-white transition">
                 <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="h-9 w-9 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white hover:text-[#0B1F33] text-white transition">
+              <a href="https://facebook.com/afyadeskhealth" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="h-9 w-9 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white hover:text-[#0B1F33] text-white transition">
                 <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="h-9 w-9 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white hover:text-[#0B1F33] text-white transition">
+              <a href="https://instagram.com/afyadeskhealth" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="h-9 w-9 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white hover:text-[#0B1F33] text-white transition">
                 <svg viewBox="0 0 24 24" className="h-4 w-4 fill-none stroke-current stroke-2" aria-hidden><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
               </a>
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer" aria-label="X" className="h-9 w-9 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white hover:text-[#0B1F33] text-white transition">
+              <a href="https://x.com/afyadeskhealth" target="_blank" rel="noopener noreferrer" aria-label="X" className="h-9 w-9 rounded-full bg-white/10 border border-white/15 flex items-center justify-center hover:bg-white hover:text-[#0B1F33] text-white transition">
                 <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden><path d="M18.9 3H21.7L14.6 11.1L22.9 21H16.9L12.2 14.9L6.8 21H4L11.9 12.3L3.8 3H9.9L14.1 8.6L18.9 3Z"/></svg>
               </a>
             </div>
@@ -58,6 +59,7 @@ export function Footer() {
                 ["Apply", "/careers/apply"],
                 ["Course", "/course"],
                 ["Blog", "/blog"],
+                ["Hire Talent", "/hire"],
                 ["Contact", "/contact"],
               ].map(([l, h]) => (
                 <li key={h}>
@@ -105,12 +107,14 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            <div className="mt-6">
+            <div className="mt-6 space-y-2">
               <p className="text-xs text-white/60">Need support?</p>
-              <a href="mailto:hello@afyadesk.co.ke" className="text-sm font-semibold hover:text-white">
-                hello@afyadesk.co.ke
+              <a href="mailto:hello@afyadesk.com" className="flex items-center gap-2 text-sm font-semibold hover:text-white">
+                <Mail className="h-4 w-4 shrink-0 text-white/60" />
+                hello@afyadesk.com
               </a>
-              <a href="tel:+254753728292" className="text-sm font-semibold hover:text-white">
+              <a href="tel:+254753728292" className="flex items-center gap-2 text-sm font-semibold hover:text-white">
+                <Phone className="h-4 w-4 shrink-0 text-white/60" />
                 +254 753 728 292
               </a>
             </div>

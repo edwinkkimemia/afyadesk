@@ -33,13 +33,13 @@ export const metadata: Metadata = {
     images: [{ url: "/logo.png", width: 1200, height: 400, alt: "AfyaDesk" }],
   },
   twitter: { card: "summary_large_image", images: ["/logo.png"] },
-  metadataBase: new URL("https://afyadesk.co.ke"),
+  metadataBase: new URL("https://afyadesk.com"),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-white text-[#172033]">
+    <html lang="en" className={`${inter.variable} h-full antialiased`} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-white text-[#172033]" suppressHydrationWarning>
         <ConditionalShell>{children}</ConditionalShell>
       </body>
     </html>

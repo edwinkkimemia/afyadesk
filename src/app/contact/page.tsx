@@ -2,21 +2,21 @@ import { ContactForm } from "@/components/forms/contact-form";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { BreadcrumbHero } from "@/components/ui/breadcrumb-hero";
 
-export const metadata = { title: "Contact — Book a Free Consultation" };
+export const metadata = { title: "Contact — Get in Touch | AfyaDesk" };
 
 export default function ContactPage() {
   return (
     <div>
       <BreadcrumbHero
         eyebrow="Contact"
-        title="Let’s build your healthcare support team"
-        description="Tell us about your practice and workload. We’ll map your workflow and recommend the right support model. Kenya | Serving Healthcare Organizations Globally"
+        title="Get in touch"
+        description="Questions, partnerships or support — send us a message. For hiring talent, head to our dedicated hire page — serving healthcare organizations globally"
         breadcrumb={[{ label: "Contact", href: "/contact" }]}
       />
 
       <div className="mx-auto max-w-7xl px-6 py-10 grid lg:grid-cols-5 gap-8">
         <div className="lg:col-span-3 rounded-[24px] bg-white border border-[#E6EEF6] p-6 md:p-7 shadow-sm">
-          <h2 className="font-bold text-[#0B1F33]">Request a Consultation</h2>
+          <h2 className="font-bold text-[#0B1F33]">Send us a message</h2>
           <p className="text-sm text-[#5B6B80]">Avg response within 1 business day.</p>
           <div className="mt-6">
             <ContactForm />
@@ -31,7 +31,7 @@ export default function ContactPage() {
                 <Mail className="h-5 w-5 text-[#0F8B8D] shrink-0" />
                 <div>
                   <div className="font-medium text-[#0B1F33]">Email</div>
-                  <div className="text-[#5B6B80]">hello@afyadesk.co.ke</div>
+                  <div className="text-[#5B6B80]">hello@afyadesk.com</div>
                 </div>
               </div>
               <div className="flex gap-3">

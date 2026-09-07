@@ -11,10 +11,10 @@ export function HomeCareersSection() {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
           <div className="max-w-2xl">
             <p className="text-xs font-bold tracking-[0.14em] uppercase text-[#0F8B8D]">Careers at AfyaDesk</p>
-            <h2 className="mt-2 text-[28px] md:text-[36px] font-bold tracking-tight text-[#0B1F33]">Remote Healthcare Careers, Built for Kenya</h2>
+            <h2 className="mt-2 text-[28px] md:text-[36px] font-bold tracking-tight text-[#0B1F33]">Remote Healthcare Careers with Global Opportunities</h2>
             <p className="mt-3 text-[15px] leading-7 text-[#5B6B80]">
-              Join Kenya&apos;s healthcare support platform connecting skilled professionals to hospitals, clinics and global
-              health teams. <span className="font-semibold text-[#0B1F33]">Flexible remote work, transparent pay, real growth</span> — not gig work. Graduates of our{" "}
+              Join Kenya&apos;s healthcare support platform connecting skilled professionals to hospitals, clinics and health
+              teams worldwide. <span className="font-semibold text-[#0B1F33]">Flexible remote work, transparent pay, global exposure, real growth</span> — not gig work. Graduates of our{" "}
               <Link href="/course" className="text-[#0F8B8D] font-semibold hover:text-[#0B1F33]">
                 Readiness Course
               </Link>{" "}

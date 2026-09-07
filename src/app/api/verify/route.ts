@@ -61,7 +61,7 @@ export async function GET(req: NextRequest) {
   }
 
   if (!enrollment) {
-    return NextResponse.json({ valid: false, certificateNo: certNoRaw, error: "Certificate not found. Check number or contact hello@afyadesk.co.ke" }, { status: 404 });
+    return NextResponse.json({ valid: false, certificateNo: certNoRaw, error: "Certificate not found. Check number or contact hello@afyadesk.com" }, { status: 404 });
   }
 
   // Consider valid if has certificateNo and is COMPLETED or hasCompletedCourse

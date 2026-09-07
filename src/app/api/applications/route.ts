@@ -11,7 +11,10 @@ const schema = z.object({
   position: z.string().min(2),
   experience: z.string().optional(),
   message: z.string().optional(),
-  resumeUrl: z.string().optional(),
+  resumeUrl: z
+    .string()
+    .min(1, "Resume file is required — please upload your CV")
+    .refine((v) => /^https?:\/\/.+/i.test(v) || /^\/uploads\/.+/i.test(v), { message: "Resume must be an uploaded file" }),
   hasCompletedCourse: z.union([z.boolean(), z.string()]).optional().transform((v) => v === true || v === "true" || v === "on"),
   courseCertificateUrl: z
     .string()

@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Input, Label, Textarea } from "@/components/ui/input";
+import { Input, Label } from "@/components/ui/input";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { ImageUpload } from "@/components/ui/image-upload";
 import Link from "next/link";
 
@@ -48,7 +49,7 @@ export default function AdminBlogNewPage() {
         </div>
         <div><Label>Title *</Label><Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required /></div>
         <div><Label>Excerpt</Label><Input value={form.excerpt} onChange={(e) => setForm({ ...form, excerpt: e.target.value })} /></div>
-        <div><Label>Content *</Label><Textarea value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} rows={8} required /></div>
+        <div><Label>Content * (rich text)</Label><RichTextEditor value={form.content} onChange={(v) => setForm({ ...form, content: v })} /></div>
         <div><Label>Tags (comma)</Label><Input value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })} placeholder="Medical VA, Kenya" /></div>
         <ImageUpload label="Featured Image" value={form.coverImage} onChange={(v) => setForm({ ...form, coverImage: v })} />
         {msg && <p className="text-sm bg-emerald-50 border border-emerald-200 rounded-xl px-3 py-2">{msg}</p>}

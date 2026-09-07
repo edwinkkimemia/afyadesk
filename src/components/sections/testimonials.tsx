@@ -7,15 +7,27 @@ export function TestimonialsSection() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="max-w-2xl">
           <p className="text-xs font-bold tracking-[0.14em] uppercase text-white/60">Testimonials</p>
-          <h2 className="mt-2 text-[28px] md:text-[36px] font-bold tracking-tight">Trusted by healthcare teams</h2>
+          <h2 className="mt-2 text-[28px] md:text-[36px] font-bold tracking-tight">Loved by those hiring — and those hired</h2>
+          <p className="mt-2 text-sm text-white/60">Healthcare organizations hiring talent, and professionals building remote careers with global exposure.</p>
         </div>
         <div className="mt-8 grid md:grid-cols-3 gap-5">
           {testimonials.map((t) => (
-            <div key={t.name} className="rounded-[20px] bg-white text-[#0B1F33] p-6">
-              <div className="flex gap-1">
-                {Array.from({ length: t.rating }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                ))}
+            <div key={t.name} className="rounded-[20px] bg-white text-[#0B1F33] p-6 flex flex-col">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex gap-1">
+                  {Array.from({ length: t.rating }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <span
+                  className={`text-[11px] font-bold px-2.5 py-1 rounded-full border ${
+                    (t as any).type === "talent"
+                      ? "bg-amber-50 text-amber-700 border-amber-200"
+                      : "bg-[#EAF6FF] text-[#0F8B8D] border-[#E6EEF6]"
+                  }`}
+                >
+                  {(t as any).type === "talent" ? "Talent" : "Hiring Client"}
+                </span>
               </div>
               <p className="mt-3 text-sm leading-6 text-[#172033]">“{t.content}”</p>
               <div className="mt-4 flex gap-3 items-center">

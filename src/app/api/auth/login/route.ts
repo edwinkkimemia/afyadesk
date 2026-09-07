@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       const user = await prisma.user.findUnique({ where: { email: parsed.data.email } });
       if (!user) {
         // check env fallback
-        const adminEmail = process.env.ADMIN_EMAIL || "admin@afyadesk.co.ke";
+        const adminEmail = process.env.ADMIN_EMAIL || "admin@afyadesk.com";
         const adminPass = process.env.ADMIN_PASSWORD || "Admin123!";
         if (parsed.data.email === adminEmail && parsed.data.password === adminPass) {
           await createSession({ id: "env-admin", email: adminEmail, name: "Admin", role: "ADMIN" });
@@ -30,14 +30,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true });
     } catch (dbErr: any) {
       // DB unavailable -> allow env admin
-      const adminEmail = process.env.ADMIN_EMAIL || "admin@afyadesk.co.ke";
+      const adminEmail = process.env.ADMIN_EMAIL || "admin@afyadesk.com";
       const adminPass = process.env.ADMIN_PASSWORD || "Admin123!";
       if (parsed.data.email === adminEmail && parsed.data.password === adminPass) {
         await createSession({ id: "env-admin", email: adminEmail, name: "Admin", role: "ADMIN" });
         return NextResponse.json({ success: true, demo: true });
       }
       console.warn("Login DB error", dbErr?.message);
-      return NextResponse.json({ error: "Database unavailable. Use demo credentials: admin@afyadesk.co.ke / Admin123!" }, { status: 503 });
+      return NextResponse.json({ error: "Database unavailable. Use demo credentials: admin@afyadesk.com / Admin123!" }, { status: 503 });
     }
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 });

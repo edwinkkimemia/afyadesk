@@ -55,10 +55,10 @@ export default function ServicesPage() {
         <div className="rounded-[24px] bg-[#EAF6FF] border border-[#E6EEF6] p-6 flex flex-col md:flex-row gap-4 items-center justify-between">
           <div>
             <h3 className="font-bold text-[#0B1F33]">Not sure what you need?</h3>
-            <p className="text-sm text-[#5B6B80]">Book a free consultation — we&apos;ll recommend the right support model.</p>
+            <p className="text-sm text-[#5B6B80]">Hire talent — we&apos;ll recommend the right support model.</p>
           </div>
-          <Link href="/contact">
-            <Button size="lg">Book a Free Consultation</Button>
+          <Link href="/hire">
+            <Button size="lg">Hire Talent</Button>
           </Link>
         </div>
       </div>

@@ -16,7 +16,7 @@ export default function TermsPage() {
           <h3>Limitation of liability</h3>
           <p>Services are provided on an “as is” basis to the extent permitted by law.</p>
           <h3>Contact</h3>
-          <p>hello@afyadesk.co.ke</p>
+          <p>hello@afyadesk.com</p>
         </div>
       </div>
     </div>

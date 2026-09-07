@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input, Select, Label, Textarea } from "@/components/ui/input";
 import { ImageUpload } from "@/components/ui/image-upload";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -342,7 +343,10 @@ export default function AdminDashboardClient({ user }: { user: any }) {
                             {a.fullName} {a.hasCompletedCourse && <span className="text-[10px] bg-amber-400 text-[#0B1F33] px-1.5 py-0.5 rounded-full font-bold">COURSE • PRIORITY</span>}
                           </div>
                           <div className="text-xs text-[#5B6B80]">{a.email} • {a.phone} • {a.location || ""}</div>
-                          {a.courseCertificateUrl && <a href={a.courseCertificateUrl} target="_blank" className="text-xs text-[#0F8B8D] underline">Certificate</a>}
+                          <div className="mt-1 flex flex-wrap gap-2">
+                            {a.resumeUrl && <a href={a.resumeUrl} target="_blank" className="text-xs font-semibold text-[#0B1F33] bg-[#F8FAFC] border border-[#E6EEF6] px-2 py-0.5 rounded-full hover:bg-white">Resume</a>}
+                            {a.courseCertificateUrl && <a href={a.courseCertificateUrl} target="_blank" className="text-xs text-[#0F8B8D] underline">Certificate</a>}
+                          </div>
                         </td>
                         <td className="py-3 px-2 text-xs">{a.position} <div className="text-[#8A9BB0]">{a.experience || ""}</div></td>
                         <td className="py-3 px-2">
@@ -637,8 +641,8 @@ export default function AdminDashboardClient({ user }: { user: any }) {
                   <Input value={blogForm.excerpt} onChange={(e) => setBlogForm({ ...blogForm, excerpt: e.target.value })} />
                 </div>
                 <div>
-                  <Label>Content *</Label>
-                  <Textarea value={blogForm.content} onChange={(e) => setBlogForm({ ...blogForm, content: e.target.value })} rows={6} required />
+                  <Label>Content * (rich text)</Label>
+                  <RichTextEditor value={blogForm.content} onChange={(v) => setBlogForm({ ...blogForm, content: v })} />
                 </div>
                 <div>
                   <Label>Tags (comma separated)</Label>
@@ -679,7 +683,7 @@ export default function AdminDashboardClient({ user }: { user: any }) {
               <div className="mt-4 grid gap-3 text-sm">
                 <div className="p-3 rounded-xl bg-[#F8FAFC] border border-[#E6EEF6]">
                   <div className="font-semibold">Contact</div>
-                  <div className="text-xs text-[#5B6B80]">hello@afyadesk.co.ke • +254 753 728 292 • Nairobi</div>
+                  <div className="text-xs text-[#5B6B80]">hello@afyadesk.com • +254 753 728 292 • Nairobi</div>
                 </div>
                 <div className="p-3 rounded-xl bg-[#F8FAFC] border border-[#E6EEF6]">
                   <div className="font-semibold">Logo</div>

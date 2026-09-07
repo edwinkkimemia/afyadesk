@@ -52,7 +52,7 @@ export default async function PortalPage() {
     return (
       <div className="mx-auto max-w-2xl px-6 py-16 text-center">
         <h1 className="text-2xl font-bold text-[#0B1F33]">{enrollment.status === "REJECTED" ? "Enrollment Rejected" : "Payment pending — STK Push"}</h1>
-        <p className="mt-2 text-[#5B6B80]">Your enrollment is <span className="font-semibold">{enrollment.status}</span>. {enrollment.status === "PENDING" ? "Did you complete the M-Pesa STK push? Check your phone for the PIN prompt (Daraja). If you missed it, re-enroll or contact hello@afyadesk.co.ke" : "Contact hello@afyadesk.co.ke"}</p>
+        <p className="mt-2 text-[#5B6B80]">Your enrollment is <span className="font-semibold">{enrollment.status}</span>. {enrollment.status === "PENDING" ? "Did you complete the M-Pesa STK push? Check your phone for the PIN prompt (Daraja). If you missed it, re-enroll or contact hello@afyadesk.com" : "Contact hello@afyadesk.com"}</p>
         <a href="/course/enroll" className="mt-4 inline-block h-12 px-6 rounded-full bg-[#0B1F33] text-white text-sm font-semibold items-center justify-center">{enrollment.status === "REJECTED" ? "Try Again →" : "Try STK again →"}</a>
       </div>
     );

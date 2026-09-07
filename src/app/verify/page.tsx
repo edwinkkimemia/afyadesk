@@ -44,7 +44,7 @@ export default async function VerifyPage({ searchParams }: { searchParams?: Prom
           <ul className="mt-2 space-y-1.5 text-sm text-[#5B6B80] list-disc list-inside">
             <li>We check our secure registry (DB + demo) for the exact Certificate No.</li>
             <li>Valid certificates show recipient name, course title, completion date and director.</li>
-            <li>Invalid or incomplete certificates show an error — contact <a href="mailto:hello@afyadesk.co.ke" className="text-[#0F8B8D] underline">hello@afyadesk.co.ke</a> or <a href="tel:+254753728292" className="text-[#0F8B8D] underline">+254 753 728 292</a>.</li>
+            <li>Invalid or incomplete certificates show an error — contact <a href="mailto:hello@afyadesk.com" className="text-[#0F8B8D] underline">hello@afyadesk.com</a> or <a href="tel:+254753728292" className="text-[#0F8B8D] underline">+254 753 728 292</a>.</li>
           </ul>
           <div className="mt-3 flex flex-wrap gap-2">
             <Link href="/course" className="text-xs font-semibold text-[#0F8B8D] hover:text-[#0B1F33]">About the course →</Link>

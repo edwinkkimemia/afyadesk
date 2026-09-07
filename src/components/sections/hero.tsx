@@ -25,7 +25,7 @@ export function Hero() {
                 <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                 Available for new clients
               </Badge>
-              <Badge>Kenyan Talent • Healthcare-Focused • Remote • Scalable</Badge>
+              <Badge>Kenyan Talent • Serving Healthcare Globally • Scalable</Badge>
             </div>
 
             <h1 className="text-[32px] md:text-[44px] lg:text-[48px] font-bold tracking-tight leading-[1.05] text-[#0B1F33]">
@@ -39,9 +39,9 @@ export function Hero() {
             </p>
 
             <div className="mt-7 flex flex-col sm:flex-row gap-3">
-              <Link href="/contact">
+              <Link href="/hire">
                 <Button size="xl" className="w-full sm:w-auto">
-                  Book a Free Consultation <ArrowRight className="h-4 w-4" />
+                  Hire Talent <ArrowRight className="h-4 w-4" />
                 </Button>
               </Link>
               <Link href="/services">
@@ -74,7 +74,7 @@ export function Hero() {
               ))}
             </div>
 
-            <p className="mt-6 text-xs text-[#8A9BB0]">Trusted by clinics, hospitals & health startups across Kenya and beyond</p>
+            <p className="mt-6 text-xs text-[#8A9BB0]">Trusted by clinics, hospitals & health startups globally</p>
           </div>
 
           {/* Visual */}

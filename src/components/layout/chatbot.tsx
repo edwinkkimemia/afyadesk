@@ -17,10 +17,10 @@ function botReply(input: string): string {
   if (q.includes("service")) return "We offer Medical Virtual Assistants, Reception, Transcription, Billing & Claims (SHA/private), Patient Support, Data/Admin and Telehealth Support — all non-clinical. Explore at /services.";
   if (q.includes("cost") || q.includes("price") || q.includes("pricing") || q.includes("rate")) return "We quote flexibly: Part-time (≤20h/wk), Full-time (40h/wk) or Custom team. Example careers pay $10–$20/hr. Tell us your workload for a custom quote — no rigid pricing.";
   if (q.includes("security") || q.includes("data") || q.includes("confiden")) return "We operate with NDAs, least-privilege access, encrypted comms and staff training, aligned to Kenyan Data Protection Act + your policies. No false HIPAA/GDPR certification claims.";
-  if (q.includes("job") || q.includes("career") || q.includes("apply")) return "Great! See /careers — 6 roles ($10–$20/hr) with details per job. Each has an Apply form. We reply within 5 days.";
-  if (q.includes("contact") || q.includes("consult")) return "Book a free consultation at /contact — we reply within 1 business day, match in 5–7 days.";
-  if (q.includes("hello") || q.includes("hi") || q.includes("hey")) return "Hi! I’m Afya — your AfyaDesk assistant. Ask about services, pricing, security, or careers, or book a free consultation.";
-  return "Thanks for asking! For specifics, our team is best — book a free consultation at /contact or ask: services, pricing, security, or jobs.";
+  if (q.includes("job") || q.includes("career") || q.includes("apply")) return "Great! See /careers — 12 roles ($10–$20/hr) with details per job. Each has an Apply form. We reply within 5 days.";
+  if (q.includes("contact") || q.includes("consult") || q.includes("hire")) return "Hire talent at /hire — we reply within 1 business day, match in 5–7 days.";
+  if (q.includes("hello") || q.includes("hi") || q.includes("hey")) return "Hi! I’m Afya — your AfyaDesk assistant. Ask about services, pricing, security, or careers, or hire talent.";
+  return "Thanks for asking! For specifics, our team is best — hire talent at /hire or ask: services, pricing, security, or jobs.";
 }
 
 export function Chatbot() {
@@ -115,8 +115,8 @@ export function Chatbot() {
               </button>
             </div>
             <div className="mt-2 flex gap-2">
-              <Link href="/contact" className="flex-1 h-8 rounded-full bg-[#0F8B8D] text-white text-xs font-semibold flex items-center justify-center gap-1">
-                Book Free Consultation <ArrowRight className="h-3 w-3" />
+              <Link href="/hire" className="flex-1 h-8 rounded-full bg-[#0F8B8D] text-white text-xs font-semibold flex items-center justify-center gap-1">
+                Hire Talent <ArrowRight className="h-3 w-3" />
               </Link>
               <Link href="/careers" className="h-8 px-3 rounded-full bg-white border border-[#E6EEF6] text-xs font-semibold flex items-center justify-center text-[#0B1F33]">
                 Careers

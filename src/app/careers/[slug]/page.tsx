@@ -123,7 +123,7 @@ export default async function CareerDetail({ params }: Props) {
             <Link href="/course" className="mt-3 flex items-center justify-center gap-1.5 text-xs font-semibold text-white/70 hover:text-white">
               <Award className="h-3.5 w-3.5" /> Do course first — get prioritised
             </Link>
-            <p className="mt-3 text-xs text-white/50 text-center flex items-center justify-center gap-1"><Shield className="h-3 w-3" /> Kenya • Remote • {job.type}</p>
+            <p className="mt-3 text-xs text-white/50 text-center flex items-center justify-center gap-1"><Shield className="h-3 w-3" /> Remote • Global Clients • {job.type}</p>
           </div>
 
           <div className="rounded-[20px] bg-white border border-[#E6EEF6] p-6">

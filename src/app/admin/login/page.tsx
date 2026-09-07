@@ -44,12 +44,12 @@ export default function AdminLoginPage() {
         </div>
 
         <h1 className="mt-6 text-xl font-bold text-[#0B1F33]">Sign in</h1>
-        <p className="text-sm text-[#5B6B80]">Demo: admin@afyadesk.co.ke / Admin123!</p>
+        <p className="text-sm text-[#5B6B80]">Demo: admin@afyadesk.com / Admin123!</p>
 
         <form onSubmit={onSubmit} className="mt-6 space-y-4">
           <div>
             <Label>Email</Label>
-            <Input name="email" type="email" required defaultValue="admin@afyadesk.co.ke" />
+            <Input name="email" type="email" required defaultValue="admin@afyadesk.com" />
           </div>
           <div>
             <Label>Password</Label>

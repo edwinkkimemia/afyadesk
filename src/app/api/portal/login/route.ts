@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (enrollment.status === "PENDING") {
-      return NextResponse.json({ error: "Payment not verified yet. M-Pesa STK Push pending or not completed. If you paid, wait ~30s for callback or contact hello@afyadesk.co.ke" }, { status: 403 });
+      return NextResponse.json({ error: "Payment not verified yet. M-Pesa STK Push pending or not completed. If you paid, wait ~30s for callback or contact hello@afyadesk.com" }, { status: 403 });
     }
     if (enrollment.status === "REJECTED") {
       return NextResponse.json({ error: "Enrollment rejected. Contact support." }, { status: 403 });

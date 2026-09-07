@@ -123,7 +123,7 @@ export function VerifyForm({ initialCert }: { initialCert?: string }) {
                 </div>
                 {(result as any).director && (
                   <div className="text-xs text-[#5B6B80] border-t border-[#E6EEF6] pt-3 mt-1">
-                    <span className="font-semibold text-[#0B1F33]">Director:</span> {(result as any).director} • <span className="font-semibold">Verify at</span> <Link href={`/verify?cert=${encodeURIComponent((result as any).certificateNo)}`} className="underline text-[#0F8B8D]">afyadesk.co.ke/verify?cert={(result as any).certificateNo}</Link>
+                    <span className="font-semibold text-[#0B1F33]">Director:</span> {(result as any).director} • <span className="font-semibold">Verify at</span> <Link href={`/verify?cert=${encodeURIComponent((result as any).certificateNo)}`} className="underline text-[#0F8B8D]">afyadesk.com/verify?cert={(result as any).certificateNo}</Link>
                   </div>
                 )}
               </div>
@@ -149,7 +149,7 @@ export function VerifyForm({ initialCert }: { initialCert?: string }) {
                   )}
                 </div>
               </div>
-              <div className="mt-3 text-xs text-[#8A9BB0]">Double-check dashes and characters. Valid format: <span className="font-mono bg-white border px-1.5 py-0.5 rounded">AFYA-2026-XXXXXX</span> (6 alphanumeric after year). Need help? <a href="mailto:hello@afyadesk.co.ke" className="underline text-[#0F8B8D]">hello@afyadesk.co.ke</a> • <a href="tel:+254753728292" className="underline text-[#0F8B8D]">+254 753 728 292</a></div>
+              <div className="mt-3 text-xs text-[#8A9BB0]">Double-check dashes and characters. Valid format: <span className="font-mono bg-white border px-1.5 py-0.5 rounded">AFYA-2026-XXXXXX</span> (6 alphanumeric after year). Need help? <a href="mailto:hello@afyadesk.com" className="underline text-[#0F8B8D]">hello@afyadesk.com</a> • <a href="tel:+254753728292" className="underline text-[#0F8B8D]">+254 753 728 292</a></div>
             </>
           )}
         </div>

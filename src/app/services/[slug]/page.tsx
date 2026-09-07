@@ -38,9 +38,9 @@ export default async function ServiceDetail({ params }: Props) {
           { label: svc.title, href: `/services/${svc.slug}` },
         ]}
       >
-        <Link href="/contact">
+        <Link href="/hire">
           <Button size="lg" className="bg-white text-[#0B1F33] hover:bg-[#F1F5F9]">
-            Book a Free Consultation <ArrowRight className="h-4 w-4" />
+            Hire Talent <ArrowRight className="h-4 w-4" />
           </Button>
         </Link>
         <Link href="/contact" className="hidden sm:inline-flex h-12 px-6 items-center rounded-full border border-white/20 text-sm font-semibold hover:bg-white hover:text-[#0B1F33]">

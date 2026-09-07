@@ -71,7 +71,7 @@ export default async function CourseEnrollPage() {
                 <div className="text-[#0F8B8D] font-bold">{priceLabel}</div>
               </div>
             </div>
-            <p className="mt-3 text-xs text-[#8A9BB0]">Mock mode auto-confirms in 12s when Daraja env not set. Live mode uses real Safaricom STK. Need help? <a href="mailto:hello@afyadesk.co.ke" className="underline">hello@afyadesk.co.ke</a> • +254 753 728 292</p>
+            <p className="mt-3 text-xs text-[#8A9BB0]">Mock mode auto-confirms in 12s when Daraja env not set. Live mode uses real Safaricom STK. Need help? <a href="mailto:hello@afyadesk.com" className="underline">hello@afyadesk.com</a> • +254 753 728 292</p>
           </div>
         </div>
 
@@ -105,7 +105,7 @@ export default async function CourseEnrollPage() {
           <div className="rounded-2xl bg-amber-50 border border-amber-200 p-4">
             <h4 className="font-semibold text-amber-900 text-sm">Questions?</h4>
             <div className="mt-2 space-y-1.5 text-sm text-amber-900">
-              <a href="mailto:hello@afyadesk.co.ke" className="flex items-center gap-2 hover:underline"><Mail className="h-4 w-4" /> hello@afyadesk.co.ke</a>
+              <a href="mailto:hello@afyadesk.com" className="flex items-center gap-2 hover:underline"><Mail className="h-4 w-4" /> hello@afyadesk.com</a>
               <a href="tel:+254753728292" className="flex items-center gap-2 hover:underline"><Phone className="h-4 w-4" /> +254 753 728 292</a>
             </div>
             <p className="mt-3 text-xs text-amber-800">Course does not guarantee employment; see full disclaimer on <Link href="/course" className="underline">course page</Link>.</p>

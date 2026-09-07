@@ -21,7 +21,7 @@ export function ProblemSection() {
             Your Healthcare Team Shouldn&apos;t Be Buried in Administration
           </h2>
           <p className="mt-3 text-[#5B6B80] leading-7">
-            Kenyan hospitals, clinics and practices lose time, revenue and patient trust to admin overload. Sound familiar?
+            Hospitals, clinics and practices globally lose time, revenue and patient trust to admin overload. Sound familiar?
           </p>
         </div>
 

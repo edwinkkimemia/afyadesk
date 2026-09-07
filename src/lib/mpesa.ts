@@ -74,7 +74,7 @@ export async function stkPush(params: {
   const passkey = process.env.MPESA_PASSKEY!;
   const timestamp = getTimestamp();
   const password = Buffer.from(`${shortcode}${passkey}${timestamp}`).toString("base64");
-  const callbackUrl = params.callbackUrl || process.env.MPESA_CALLBACK_URL || `${process.env.NEXTAUTH_URL || "https://afyadesk.co.ke"}/api/mpesa/callback`;
+  const callbackUrl = params.callbackUrl || process.env.MPESA_CALLBACK_URL || `${process.env.NEXTAUTH_URL || "https://afyadesk.com"}/api/mpesa/callback`;
 
   const body = {
     BusinessShortCode: shortcode,

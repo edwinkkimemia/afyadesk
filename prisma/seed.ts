@@ -6,9 +6,9 @@ const prisma = new PrismaClient();
 async function main() {
   const hash = await bcrypt.hash("Admin123!", 10);
   await prisma.user.upsert({
-    where: { email: "admin@afyadesk.co.ke" },
+    where: { email: "admin@afyadesk.com" },
     update: {},
-    create: { name: "AfyaDesk Admin", email: "admin@afyadesk.co.ke", password: hash, role: "ADMIN" },
+    create: { name: "AfyaDesk Admin", email: "admin@afyadesk.com", password: hash, role: "ADMIN" },
   });
 
   const services = [
@@ -30,6 +30,9 @@ async function main() {
       { name: "Dr. Wanjiku Mwangi", role: "Director", organization: "Parklands Medical Centre, Nairobi", content: "AfyaDesk transformed our front desk. Professional and reliable.", rating: 5 },
       { name: "Dr. James Ochieng", role: "Founder", organization: "Lakeview Dental Clinic, Kisumu", content: "Transcription support saves 10+ hours weekly.", rating: 5 },
       { name: "Sarah Mitchell", role: "Operations Lead", organization: "TeleHealth UK", content: "Seamless outsourcing from Kenya.", rating: 5 },
+      { name: "Emily Carter", role: "Practice Manager", organization: "Austin Family Clinic, USA", content: "We hired two virtual assistants in under a week. Scheduling and follow-ups handled.", rating: 5 },
+      { name: "Grace Muthoni", role: "Medical Virtual Assistant", organization: "AfyaDesk Talent • Nairobi", content: "The Readiness Course prepared me for real clinic work. Now I support a UK practice remotely.", rating: 5 },
+      { name: "Brian Kiprop", role: "Medical Receptionist", organization: "AfyaDesk Talent • Eldoret", content: "Got trained and now handle calls for a US clinic. Transparent pay — not gig work.", rating: 5 },
     ],
     skipDuplicates: true,
   });
