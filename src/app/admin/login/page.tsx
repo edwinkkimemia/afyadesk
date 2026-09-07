@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input, Label } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Button } from "@/components/ui/button";
 
 export default function AdminLoginPage() {
@@ -53,7 +54,7 @@ export default function AdminLoginPage() {
           </div>
           <div>
             <Label>Password</Label>
-            <Input name="password" type="password" required defaultValue="Admin123!" />
+            <PasswordInput name="password" required defaultValue="Admin123!" />
           </div>
           {error && <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-2">{error}</p>}
           <Button type="submit" size="lg" className="w-full" disabled={loading}>

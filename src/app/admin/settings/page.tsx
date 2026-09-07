@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Input, Label } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { Button } from "@/components/ui/button";
 
 export default function AdminSettingsPage(){
@@ -86,16 +87,16 @@ export default function AdminSettingsPage(){
         <p className="text-sm text-[#5B6B80]">Update the password for your currently logged-in admin account.</p>
         <div>
           <Label>Current Password *</Label>
-          <Input type="password" value={currentPassword} onChange={e=>setCurrentPassword(e.target.value)} placeholder="••••••••" required autoComplete="current-password" />
+          <PasswordInput value={currentPassword} onChange={e=>setCurrentPassword(e.target.value)} placeholder="••••••••" required autoComplete="current-password" />
         </div>
         <div className="grid md:grid-cols-2 gap-4">
           <div>
             <Label>New Password * (min 8 chars)</Label>
-            <Input type="password" value={newPassword} onChange={e=>setNewPassword(e.target.value)} placeholder="••••••••" required minLength={8} autoComplete="new-password" />
+            <PasswordInput value={newPassword} onChange={e=>setNewPassword(e.target.value)} placeholder="••••••••" required minLength={8} autoComplete="new-password" />
           </div>
           <div>
             <Label>Confirm New Password *</Label>
-            <Input type="password" value={confirmPassword} onChange={e=>setConfirmPassword(e.target.value)} placeholder="••••••••" required minLength={8} autoComplete="new-password" />
+            <PasswordInput value={confirmPassword} onChange={e=>setConfirmPassword(e.target.value)} placeholder="••••••••" required minLength={8} autoComplete="new-password" />
           </div>
         </div>
         {pwMsg && <p className={`text-sm rounded-xl px-3 py-2 border ${pwOk ? "bg-emerald-50 border-emerald-200 text-emerald-700" : "bg-red-50 border-red-200 text-red-600"}`}>{pwMsg}</p>}
